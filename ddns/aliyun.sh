@@ -41,8 +41,11 @@ urlencode() {
 		local c=$(echo $raw | cut -c$i-$i)
 
 		case $c in [a-zA-Z0-9.~_-]) ;;
+			"@")
+			c="%2540" ;; # fix bug - @.xxx.cn first class domain name 
 			*)
 			c=$(printf '%%%02X' "'$c") ;;
+			
 		esac
 
 		encoded="$encoded$c"
